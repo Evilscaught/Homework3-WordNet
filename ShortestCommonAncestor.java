@@ -1,37 +1,91 @@
+import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.DirectedCycle;
+import edu.princeton.cs.algs4.In;
 
 
 public class ShortestCommonAncestor
 {
+    private Digraph digraph;
     //Constructor takes a rooted DAG as argument
     public ShortestCommonAncestor(Digraph G)
     {
+        DirectedCycle acyclic = new DirectedCycle(G);
         if (G == null)
         {
-            throw new java.lang.NullPointerException();
+            throw new java.lang.NullPointerException("Di-Graph cannot be Null");
         }
-      //TODO: Throw a java.lang.IndexOutOfBoundsException if the di-graph G is not a DAG (Directed Acyclic Graph)
-    
+        //Throw an index out of bounds exception if directional graph has a cycle. 
+        if (acyclic.hasCycle())
+        {
+            throw new java.lang.IndexOutOfBoundsException("Di-Graph cannot be cyclic");
+        }
+        digraph = G;
     }
     
     //Length of shortest ancestral path between v and w.
     public int length(int v, int w)
     {
-        //TODO: Throw a java.lang.IndexOutOfBoundsException if v or w are invalid vertices.
+        //Throw an index out of bounds exception if vertex v or w are not valid vertices. 
+        if (!isVertex(v))
+        {
+            throw new java.lang.IndexOutOfBoundsException("Vertex v is not a valid vertex.");
+        }
+        if (!isVertex(w))
+        {
+            throw new java.lang.IndexOutOfBoundsException("Vertex w is not a valid vertex");
+        }
+        //sca is an abbreviation for: 'shortest common ancestor'
+        int sca = 0;
+        int length = 0;
+        
+        BreadthFirstDirectedPaths bfs_path_v = new BreadthFirstDirectedPaths(digraph, v);
+        BreadthFirstDirectedPaths bfs_path_w = new BreadthFirstDirectedPaths(digraph, w);
         
         //Requirements:
         //  Must take time proportional to the number of vertices and edges reachable from the argument of vertices
-        return 0;
+        for (int currentVertex = 0; currentVertex < digraph.V(); currentVertex++)
+        {
+           if (bfs_path_v.hasPathTo(currentVertex) && bfs_path_w.hasPathTo(currentVertex))
+           {
+               sca = currentVertex;
+           }    
+        }
+        
+        length = bfs_path_v.distTo(sca) + bfs_path_w.distTo(sca);
+        
+        return length;
     }
     
     //A shortest common ancestor of vertices v and w.
     public int ancestor(int v, int w)
     {
-        //TODO: Throw a java.lang.IndexOutOfBoundsException if v or w are invalid vertices.
+        //Throw an index out of bounds exception if vertex v or w are not valid vertices. 
+        if (!isVertex(v))
+        {
+            throw new java.lang.IndexOutOfBoundsException("Vertex v is not a valid vertex.");
+        }
+        if (!isVertex(w))
+        {
+            throw new java.lang.IndexOutOfBoundsException("Vertex w is not a valid vertex");
+        }
+        //sca is an abbreviation for: 'shortest common ancestor'
+        int sca = 0;
         
-      //Requirements:
+        BreadthFirstDirectedPaths bfs_path_v = new BreadthFirstDirectedPaths(digraph, v);
+        BreadthFirstDirectedPaths bfs_path_w = new BreadthFirstDirectedPaths(digraph, w);
+
+        //Requirements:
         //  Must take time proportional to the number of vertices and edges reachable from the argument of vertices
-        return 0;
+        for (int currentVertex = 0; currentVertex < digraph.V(); currentVertex++)
+        {
+           if (bfs_path_v.hasPathTo(currentVertex) && bfs_path_w.hasPathTo(currentVertex))
+           {
+               sca = currentVertex;
+           }    
+        }
+
+        return sca;
     }
     
     //Length of shortest ancestral path of vertex subsets A and B
@@ -50,7 +104,23 @@ public class ShortestCommonAncestor
             throw new java.lang.IllegalArgumentException("subsetB has no vertices");
         }
         
-        return 0;
+        int sca = 0;
+        int length = 0;
+        
+        BreadthFirstDirectedPaths bfs_path_subsetA = new BreadthFirstDirectedPaths(digraph, subsetA);
+        BreadthFirstDirectedPaths bfs_path_subsetB = new BreadthFirstDirectedPaths(digraph, subsetB);
+        
+        for (int currentVertex = 0; currentVertex < digraph.V(); currentVertex++)
+        {
+           if (bfs_path_subsetA.hasPathTo(currentVertex) && bfs_path_subsetB.hasPathTo(currentVertex))
+           {
+               sca = currentVertex;
+           }    
+        }
+        
+        length = bfs_path_subsetA.distTo(sca) + bfs_path_subsetB.distTo(sca);
+        
+        return length;
     }
     
     //A shortest common ancestor of vertex subsets A and B
@@ -64,10 +134,23 @@ public class ShortestCommonAncestor
         return 0;
     }
     
+    //Returns true if given vertex exists in the directional graph.
+    public boolean isVertex(int vertex)
+    {
+        if ((vertex < 0) || (vertex > digraph.V()))
+        {
+            return false;
+        }
+        else
+        {
+            return true; 
+        }
+    }
+    
     //Unit Testing
     public static void main(String[] args) 
     {
-        @SuppressWarnings("unused")
+        System.out.println("ShortestCommonAncestor.java");
         In in = new In(args[0]);
         Digraph G = new Digraph(in);
         ShortestCommonAncestor sca = new ShortestCommonAncestor(G);
@@ -79,5 +162,6 @@ public class ShortestCommonAncestor
             int ancestor = sca.ancestor(v, w);
             StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
         }
+        System.out.println("Terminated");
     }
 }
