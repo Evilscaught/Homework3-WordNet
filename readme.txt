@@ -1,7 +1,7 @@
 /******************************************************************************
  *  Name:     Scott McKay
  *
- *  Hours to complete assignment (optional): 1.5 (As of Thursday, November 8th, 2017)
+ *  Hours to complete assignment (optional): 9.5 
  *
  ******************************************************************************/
 
@@ -12,15 +12,17 @@ Programming Assignment 3: WordNet
  *  Describe concisely the data structure(s) you used to store the 
  *  information in synsets.txt. Why did you make this choice?
  *****************************************************************************/
-
+Used a symbol table provided by alg4. I made this choice because I realized that 
+words were keys and their ID's are their values.
 
 
 /******************************************************************************
  *  Describe concisely the data structure(s) you used to store the 
  *  information in hypernyms.txt. Why did you make this choice?
  *****************************************************************************/
-
-
+Used a directional graph.  This is because hypernyms.txt represents the relationship
+of the words in synsets.txt in an acyclic hierarchical order.  Because of the hierarchical
+order I found it necessary to use a digraph. 
 
 /******************************************************************************
  *  Describe concisely the algorithm you use in the constructor of
@@ -31,7 +33,8 @@ Programming Assignment 3: WordNet
  *****************************************************************************/
 
 Description:
-
+I've decided to use the class DirectedCycle (provided in the alg4 library) to
+determine if the graph is acyclic. 
 
 
 Order of growth of running time:

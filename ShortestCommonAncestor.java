@@ -1,3 +1,33 @@
+/******************************************************************************
+ *  Compilation:  javac ShortestCommonAncestor.java
+ *  Execution:    java  ShortestCommonAncestor
+ *  Dependencies: edu.princeton.cs.algs4.*;
+ *
+ *  @author(s)          Scott McKay
+ *  @collaborator(s)    None 
+ *  @course             Data Structures
+ *  @homework           Programming Homework 3: WordNet
+ *  @copyright          None
+ *  @date_created       Tuesday, November 7th, 2017 @3:52 p.m. MST
+ *
+ *     Interface for acyclic tree of words.  
+ *
+ *     *
+ *
+ *     *
+ *
+ *     *
+ *
+ *  BUG:
+ *
+ *  FEATURE:
+ *
+ *  NOTE: Must send acyclic directional graph file into argument.
+ *
+ *  % java ShortestCommonAncestor
+ *
+ ******************************************************************************/
+
 import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.DirectedCycle;

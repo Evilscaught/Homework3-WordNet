@@ -1,3 +1,35 @@
+/******************************************************************************
+ *  Compilation:  javac Outcast.java
+ *  Execution:    java  Outcast
+ *  Dependencies: edu.princeton.cs.algs4.*;
+ *
+ *  @author(s)          Scott McKay
+ *  @collaborator(s)    None
+ *  @course             Data Structures
+ *  @homework           Programming Homework 3: WordNet
+ *  @copyright          None
+ *  @date_created       Wednesday, November 8th, 2017 @8:26 p.m. MST
+ *
+ *     Interface for acyclic tree of words.  
+ *
+ *     *
+ *
+ *     *
+ *
+ *     *
+ *
+ *  BUG:
+ *
+ *  FEATURE:
+ *
+ *  NOTE: 
+ *
+ *  % java Outcast
+ *
+ ******************************************************************************/
+
+import java.io.FileNotFoundException;
+
 //8:26
 public class Outcast 
 {
@@ -13,7 +45,7 @@ public class Outcast
         return null;
     }
     
-    public static void main(String[] args) 
+    public static void main(String[] args) throws FileNotFoundException 
     {       
         WordNet wordnet = new WordNet(args[0], args[1]);
         Outcast outcast = new Outcast(wordnet);
